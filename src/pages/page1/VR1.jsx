@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import VR360Viewer from './VR360Viewer';
-import A3 from "./assets/A3.jpg";
-import A5 from "./assets/A5.jpg";
+import VR360Viewer from '../../components/VR360Viewer';
+import A3 from "../../assets/A3.jpg";
+import A5 from "../../assets/A5.jpg";
 
 const SCENES = {
   A3: {
@@ -32,7 +32,7 @@ const SCENES = {
   }
 };
 
-function App() {
+function VR1() {
   const [currentSceneId, setCurrentSceneId] = useState('A3');
   const currentScene = SCENES[currentSceneId];
 
@@ -48,8 +48,9 @@ function App() {
       hotspots={currentScene.hotspots}
       onNavigate={handleNavigate}
       sceneTitle={currentScene.title}
+      currentSceneId={currentSceneId}
     />
   );
 }
 
-export default App;
+export default VR1;

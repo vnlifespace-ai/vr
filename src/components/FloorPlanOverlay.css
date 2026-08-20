@@ -64,9 +64,9 @@
 }
 
 .header-search-btn:hover {
-  background: rgba(59, 130, 246, 0.3);
+  background: rgba(222, 145, 63, 0.3);
   transform: translateY(-2px);
-  color: #38bdf8;
+  color: #de913f;
 }
 
 .floor-pill-header {
@@ -178,8 +178,8 @@
 .dollhouse-floor-a3 {
   background: #181d28;
   background-image: 
-    linear-gradient(rgba(56, 189, 248, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(222, 145, 63, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(222, 145, 63, 0.07) 1px, transparent 1px);
   background-size: 30px 30px;
 }
 
@@ -187,8 +187,8 @@
 .dollhouse-floor-a5 {
   background: #121620;
   background-image: 
-    linear-gradient(rgba(56, 189, 248, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(222, 145, 63, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(222, 145, 63, 0.07) 1px, transparent 1px);
   background-size: 18px 18px;
 }
 
@@ -274,7 +274,7 @@
   left: 50%;
   transform: translate(-50%, -50%) translateZ(4px);
   background: rgba(15, 23, 42, 0.92);
-  border: 1.5px solid rgba(56, 189, 248, 0.5);
+  border: 1.5px solid rgba(222, 145, 63, 0.5);
   color: #ffffff;
   padding: 8px 18px;
   border-radius: 20px;
@@ -329,7 +329,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #0284c7;
+  background: #de913f;
   display: flex;
   align-items: center;
   justify-content: center;

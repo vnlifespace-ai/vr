@@ -44,6 +44,18 @@ function CameraTracker({ onAngleChange }) {
     return null;
 }
 
+// Component cập nhật FOV camera khi Zoom In / Zoom Out
+function FovController({ fov }) {
+    const { camera } = useThree();
+    useEffect(() => {
+        if (camera) {
+            camera.fov = fov;
+            camera.updateProjectionMatrix();
+        }
+    }, [fov, camera]);
+    return null;
+}
+
 export default function VR360Viewer({
     imageUrl,
     hotspots = [],
@@ -61,8 +73,12 @@ export default function VR360Viewer({
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [cameraAngle, setCameraAngle] = useState(0);
     const [autoRotate, setAutoRotate] = useState(false);
+    const [fov, setFov] = useState(62); // Góc nhìn camera vừa mắt (62deg), không bị tức mắt
     const containerRef = useRef(null);
     const controlsRef = useRef(null);
+
+    const handleZoomIn = () => setFov(prev => Math.max(35, prev - 8));
+    const handleZoomOut = () => setFov(prev => Math.min(85, prev + 8));
 
     useEffect(() => {
         if (controlsRef.current) {
@@ -117,7 +133,7 @@ export default function VR360Viewer({
                     flexDirection: 'column',
                     gap: '2px'
                 }}>
-                    <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: '700', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: '11px', color: '#de913f', fontWeight: '700', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
                         {projectName}
                     </span>
                     <span style={{ fontSize: '16px', fontWeight: '700', color: '#f8fafc' }}>
@@ -131,7 +147,7 @@ export default function VR360Viewer({
                         onClick={() => setAutoRotate(!autoRotate)}
                         title="Tự động xoay 360"
                         style={{
-                            background: autoRotate ? 'linear-gradient(135deg, #0284c7, #2563eb)' : 'rgba(15, 23, 42, 0.82)',
+                            background: autoRotate ? 'linear-gradient(135deg, #de913f, #c47926)' : 'rgba(15, 23, 42, 0.82)',
                             border: '1px solid rgba(255,255,255,0.2)',
                             color: '#fff',
                             padding: '8px 14px',
@@ -156,7 +172,7 @@ export default function VR360Viewer({
                     <button
                         onClick={() => setShowFloorPlan(!showFloorPlan)}
                         style={{
-                            background: showFloorPlan ? 'linear-gradient(135deg, #0284c7, #2563eb)' : 'rgba(15, 23, 42, 0.82)',
+                            background: showFloorPlan ? 'linear-gradient(135deg, #de913f, #c47926)' : 'rgba(15, 23, 42, 0.82)',
                             border: '1px solid rgba(255,255,255,0.2)',
                             color: '#fff',
                             padding: '8px 14px',
@@ -202,6 +218,47 @@ export default function VR360Viewer({
                             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
                         </svg>
                     </button>
+
+                    {/* Zoom In / Zoom Out Controls */}
+                    <div style={{ display: 'flex', backgroundColor: 'rgba(15, 23, 42, 0.82)', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)', overflow: 'hidden', boxShadow: '0 4px 14px rgba(0,0,0,0.3)' }}>
+                        <button
+                            onClick={handleZoomIn}
+                            title="Phóng to góc nhìn (+)"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                borderRight: '1px solid rgba(255,255,255,0.15)',
+                                color: '#fff',
+                                padding: '6px 12px',
+                                fontSize: '16px',
+                                fontWeight: 'bold',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            +
+                        </button>
+                        <button
+                            onClick={handleZoomOut}
+                            title="Thu nhỏ góc nhìn (-)"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                color: '#fff',
+                                padding: '6px 12px',
+                                fontSize: '16px',
+                                fontWeight: 'bold',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            −
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -218,12 +275,12 @@ export default function VR360Viewer({
                     borderRadius: '12px',
                     fontFamily: 'monospace',
                     fontSize: '12px',
-                    border: '1px solid rgba(56, 189, 248, 0.4)',
+                    border: '1px solid rgba(222, 145, 63, 0.4)',
                     boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
                     backdropFilter: 'blur(10px)'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8', fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#de913f', fontWeight: 'bold' }}>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                                 <circle cx="12" cy="10" r="3" />
@@ -260,7 +317,8 @@ export default function VR360Viewer({
             }} />
 
             {/* 3D Canvas Scene */}
-            <Canvas camera={{ position: [0, 0, 0.1], fov: 75 }}>
+            <Canvas camera={{ position: [0, 0, 0.1], fov: 62 }}>
+                <FovController fov={fov} />
                 <CameraTracker onAngleChange={setCameraAngle} />
                 <group rotation={[0, initialRotation, 0]}>
                     <Suspense fallback={<Html center><div style={{ color: '#fff', fontSize: '15px', fontWeight: '600', background: 'rgba(15, 23, 42, 0.88)', padding: '10px 22px', borderRadius: '12px', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.15)', whiteSpace: 'nowrap', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}>Đang tải hình ảnh VR 360°...</div></Html>}>
@@ -316,7 +374,7 @@ export default function VR360Viewer({
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>
                         <span style={{ fontWeight: '700', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#de913f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
                                 <line x1="8" y1="2" x2="8" y2="18"></line>
                                 <line x1="16" y1="6" x2="16" y2="22"></line>
@@ -338,7 +396,7 @@ export default function VR360Viewer({
                             <rect x="10" y="10" width="80" height="80" fill="rgba(30, 41, 59, 0.4)" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" rx="4" />
 
                             {/* Balcony (Bottom strip) */}
-                            <rect x="10" y="78" width="80" height="12" fill="rgba(56, 189, 248, 0.08)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeDasharray="2 2" />
+                            <rect x="10" y="78" width="80" height="12" fill="rgba(222, 145, 63, 0.08)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeDasharray="2 2" />
                             <text x="50" y="85" fill="rgba(148, 163, 184, 0.6)" fontSize="3.5" fontWeight="bold" textAnchor="middle">BAN CÔNG</text>
 
                             {/* Internal Walls */}
@@ -355,10 +413,10 @@ export default function VR360Viewer({
                             <text x="75" y="52" fill="rgba(148, 163, 184, 0.45)" fontSize="3.5" fontWeight="bold" textAnchor="middle">P. NGỦ</text>
 
                             {/* Node path connections */}
-                            <line x1="23" y1="24" x2="36" y2="55" stroke="rgba(56, 189, 248, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
-                            <line x1="23" y1="24" x2="49" y2="24" stroke="rgba(56, 189, 248, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
-                            <line x1="36" y1="55" x2="75" y2="24" stroke="rgba(56, 189, 248, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
-                            <line x1="36" y1="55" x2="75" y2="55" stroke="rgba(56, 189, 248, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
+                            <line x1="23" y1="24" x2="36" y2="55" stroke="rgba(222, 145, 63, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
+                            <line x1="23" y1="24" x2="49" y2="24" stroke="rgba(222, 145, 63, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
+                            <line x1="36" y1="55" x2="75" y2="24" stroke="rgba(222, 145, 63, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
+                            <line x1="36" y1="55" x2="75" y2="55" stroke="rgba(222, 145, 63, 0.35)" strokeWidth="1" strokeDasharray="2 2" />
 
                             {scenesList.map((scene) => {
                                 const isActive = scene.id === currentSceneId;
@@ -375,21 +433,21 @@ export default function VR360Viewer({
                                     <g key={scene.id} onClick={() => handleNavigateWithWalkAnimation(scene.id)} style={{ cursor: 'pointer' }}>
                                         {isActive && (
                                             <g transform={`translate(${mapCoords.x}, ${mapCoords.y}) rotate(${cameraAngle})`}>
-                                                <path d="M 0,0 L -12,-20 A 20 20 0 0 1 12,-20 Z" fill="rgba(56, 189, 248, 0.35)" stroke="#38bdf8" strokeWidth="1" />
+                                                <path d="M 0,0 L -12,-20 A 20 20 0 0 1 12,-20 Z" fill="rgba(222, 145, 63, 0.35)" stroke="#de913f" strokeWidth="1" />
                                             </g>
                                         )}
                                         <circle
                                             cx={mapCoords.x}
                                             cy={mapCoords.y}
                                             r={isActive ? "6" : "4.5"}
-                                            fill={isActive ? "#38bdf8" : "rgba(30, 41, 59, 0.9)"}
+                                            fill={isActive ? "#de913f" : "rgba(30, 41, 59, 0.9)"}
                                             stroke={isActive ? "#ffffff" : "rgba(255,255,255,0.6)"}
                                             strokeWidth="1.8"
                                         />
                                         <text
                                             x={mapCoords.x}
                                             y={mapCoords.y + 11}
-                                            fill={isActive ? "#38bdf8" : "#94a3b8"}
+                                            fill={isActive ? "#de913f" : "#94a3b8"}
                                             fontSize="6.5"
                                             fontWeight={isActive ? "bold" : "normal"}
                                             textAnchor="middle"
@@ -415,9 +473,9 @@ export default function VR360Viewer({
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
-                                    backgroundColor: scene.id === currentSceneId ? 'rgba(56, 189, 248, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                                    border: scene.id === currentSceneId ? '1px solid rgba(56, 189, 248, 0.5)' : '1px solid transparent',
-                                    color: scene.id === currentSceneId ? '#38bdf8' : '#cbd5e1',
+                                    backgroundColor: scene.id === currentSceneId ? 'rgba(222, 145, 63, 0.15)' : 'rgba(255, 255, 255, 0.04)',
+                                    border: scene.id === currentSceneId ? '1px solid rgba(222, 145, 63, 0.5)' : '1px solid transparent',
+                                    color: scene.id === currentSceneId ? '#de913f' : '#cbd5e1',
                                     transition: 'all 0.2s ease'
                                 }}
                             >
@@ -433,16 +491,16 @@ export default function VR360Viewer({
             {scenesList.length > 0 && (
                 <div style={{
                     position: 'absolute',
-                    bottom: '20px',
+                    bottom: '16px',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     zIndex: 20,
                     display: 'flex',
-                    gap: '10px',
+                    gap: '8px',
                     backgroundColor: 'rgba(15, 23, 42, 0.85)',
                     backdropFilter: 'blur(16px)',
-                    padding: '10px 16px',
-                    borderRadius: '20px',
+                    padding: '8px 12px',
+                    borderRadius: '16px',
                     border: '1px solid rgba(255, 255, 255, 0.15)',
                     boxShadow: '0 12px 32px rgba(0,0,0,0.5)',
                     maxWidth: '92vw',
@@ -459,17 +517,17 @@ export default function VR360Viewer({
                                     flexDirection: 'column',
                                     alignItems: 'center',
                                     cursor: 'pointer',
-                                    minWidth: '85px',
+                                    minWidth: '70px',
                                     transition: 'transform 0.2s ease'
                                 }}
                             >
                                 <div style={{
-                                    width: '80px',
-                                    height: '52px',
-                                    borderRadius: '10px',
+                                    width: '66px',
+                                    height: '42px',
+                                    borderRadius: '8px',
                                     overflow: 'hidden',
-                                    border: isActive ? '2px solid #38bdf8' : '2px solid transparent',
-                                    boxShadow: isActive ? '0 0 12px rgba(56, 189, 248, 0.6)' : 'none',
+                                    border: isActive ? '2px solid #de913f' : '2px solid transparent',
+                                    boxShadow: isActive ? '0 0 12px rgba(222, 145, 63, 0.6)' : 'none',
                                     position: 'relative'
                                 }}>
                                     <img
@@ -478,19 +536,19 @@ export default function VR360Viewer({
                                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                     />
                                     {isActive && (
-                                        <div style={{ position: 'absolute', top: 2, right: 2, width: 8, height: 8, borderRadius: '50%', backgroundColor: '#38bdf8' }} />
+                                        <div style={{ position: 'absolute', top: 2, right: 2, width: 7, height: 7, borderRadius: '50%', backgroundColor: '#de913f' }} />
                                     )}
                                 </div>
                                 <span style={{
-                                    fontSize: '11px',
+                                    fontSize: '10px',
                                     fontWeight: isActive ? '700' : '500',
-                                    color: isActive ? '#38bdf8' : '#94a3b8',
-                                    marginTop: '4px',
+                                    color: isActive ? '#de913f' : '#94a3b8',
+                                    marginTop: '3px',
                                     textAlign: 'center',
                                     whiteSpace: 'nowrap',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
-                                    maxWidth: '85px'
+                                    maxWidth: '70px'
                                 }}>
                                     {scene.shortName || scene.id}
                                 </span>

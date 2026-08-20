@@ -1,3 +1,11 @@
+:root {
+  --primary-color: #de913f;
+  --primary-hover: #c47926;
+  --primary-light: rgba(222, 145, 63, 0.25);
+  --primary-glow: rgba(222, 145, 63, 0.5);
+  --primary-gradient: linear-gradient(135deg, #de913f, #c47926);
+}
+
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -22,8 +30,8 @@ html, body, #root {
 .hotspot-pulse {
   width: 50px;
   height: 50px;
-  background: rgba(255, 255, 255, 0.25);
-  border: 2px solid rgba(255, 255, 255, 0.85);
+  background: rgba(222, 145, 63, 0.25);
+  border: 2px solid rgba(222, 145, 63, 0.85);
   border-radius: 50%;
   position: absolute;
   animation: pulse-ring 1.8s infinite ease-out;
@@ -49,7 +57,7 @@ html, body, #root {
 
 .hotspot-container:hover .hotspot-arrow {
   transform: scale(1.2);
-  background-color: #3b82f6; /* Modern Blue */
+  background-color: #de913f; /* Primary Warm Gold */
   color: #ffffff;
 }
 
@@ -69,7 +77,7 @@ html, body, #root {
   transform: translateY(-5px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(222, 145, 63, 0.3);
 }
 
 .hotspot-container:hover .hotspot-tooltip {

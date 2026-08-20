@@ -10,13 +10,74 @@ import imgA6 from './images/A6.jpg';
 import imgA7 from './images/A7.jpg';
 
 const SCENES = {
-    A1: { id: 'A1', title: 'A1 - Lối Vào / Sảnh Chính', shortName: 'Lối vào (A1)', imageUrl: imgA1, hotspots: [{ id: 'hs1_2', position: [0, -1, -15], target: 'A2', label: 'Sang A2' }] },
-    A2: { id: 'A2', title: 'A2 - Phòng Khách', shortName: 'Phòng khách (A2)', imageUrl: imgA2, hotspots: [{ id: 'hs2_1', position: [0, -1, 15], target: 'A1', label: 'Trở về A1' }, { id: 'hs2_3', position: [-14, -1, -5], target: 'A3', label: 'Sang A3' }] },
-    A3: { id: 'A3', title: 'A3 - Bếp & Ban Công', shortName: 'Bếp / Ban công (A3)', imageUrl: imgA3, hotspots: [{ id: 'hs3_2', position: [14, -1, 5], target: 'A2', label: 'Trở về A2' }, { id: 'hs3_4', position: [-14, -1, -5], target: 'A4', label: 'Sang A4' }] },
-    A4: { id: 'A4', title: 'A4 - Hành Lang Phòng Ngủ', shortName: 'Hành lang (A4)', imageUrl: imgA4, hotspots: [{ id: 'hs4_3', position: [14, -1, 5], target: 'A3', label: 'Trở về A3' }, { id: 'hs4_5', position: [0, -1, -15], target: 'A5', label: 'Sang A5' }] },
-    A5: { id: 'A5', title: 'A5 - Phòng Ngủ Phụ', shortName: 'Phòng ngủ phụ (A5)', imageUrl: imgA5, hotspots: [{ id: 'hs5_4', position: [0, -1, 15], target: 'A4', label: 'Trở về A4' }, { id: 'hs5_6', position: [14, -1, -5], target: 'A6', label: 'Sang A6' }] },
-    A6: { id: 'A6', title: 'A6 - Phòng Ngủ Master', shortName: 'Phòng master (A6)', imageUrl: imgA6, hotspots: [{ id: 'hs6_5', position: [-14, -1, 5], target: 'A5', label: 'Trở về A5' }, { id: 'hs6_7', position: [0, -1, -15], target: 'A7', label: 'Sang A7' }] },
-    A7: { id: 'A7', title: 'A7 - Nhà Vệ Sinh Master', shortName: 'WC Master (A7)', imageUrl: imgA7, hotspots: [{ id: 'hs7_6', position: [0, -1, 15], target: 'A6', label: 'Trở về A6' }] }
+    A1: {
+        id: 'A1',
+        title: 'Lối Vào / Sảnh Chính',
+        shortName: 'Lối vào',
+        imageUrl: imgA1,
+        hotspots: [
+            { id: 'hs1_2', position: [-5, -1, -15], target: 'A2', label: 'Phòng khách' },
+            { id: 'hs1_6', position: [15, -1.4, 9.4], target: 'A6', label: 'Nhà vệ sinh 2' },
+            { id: 'hs1_5', position: [14, -1, -5], target: 'A5', label: 'Nhà vệ sinh 1' }
+        ]
+    },
+    A2: {
+        id: 'A2',
+        title: 'Phòng Khách',
+        shortName: 'Phòng khách',
+        imageUrl: imgA2,
+        hotspots: [
+            { id: 'hs2_1', position: [-14.8, -1, 2.4], target: 'A1', label: 'Sảnh Chính' },
+            { id: 'hs2_4', position: [-5, -0.6, 13.8], target: 'A4', label: 'Phòng ngủ 2' },
+            { id: 'hs2_3', position: [-5.5, 0, -13.3], target: 'A3', label: 'Phòng ngủ 1' }
+        ]
+    },
+    A3: {
+        id: 'A3',
+        title: 'Phòng Ngủ 1',
+        shortName: 'Phòng ngủ 1',
+        imageUrl: imgA3,
+        hotspots: [
+            { id: 'hs3_2', position: [10, 0, -4.5], target: 'A2', label: 'Phòng khách' },
+            { id: 'hs3_7', position: [0, -1.4, 13], target: 'A7', label: 'Nhà vệ sinh 3' }
+        ]
+    },
+    A4: {
+        id: 'A4',
+        title: 'Phòng Ngủ 2 / Hành Lang',
+        shortName: 'Phòng ngủ 2',
+        imageUrl: imgA4,
+        hotspots: [
+            { id: 'hs4_2', position: [4, 0, 14.5], target: 'A2', label: 'Phòng khách' }
+        ]
+    },
+    A5: {
+        id: 'A5',
+        title: 'Nhà Vệ Sinh 1',
+        shortName: 'NVS 1',
+        imageUrl: imgA5,
+        hotspots: [
+            { id: 'hs5_1', position: [0, -1, 15], target: 'A1', label: 'Sảnh Chính' }
+        ]
+    },
+    A6: {
+        id: 'A6',
+        title: 'Nhà Vệ Sinh 2',
+        shortName: 'NVS 2',
+        imageUrl: imgA6,
+        hotspots: [
+            { id: 'hs6_1', position: [10, 0, 2.3], target: 'A1', label: 'Sảnh chính' }
+        ]
+    },
+    A7: {
+        id: 'A7',
+        title: 'Nhà Vệ Sinh 3 (Phòng Ngủ 1)',
+        shortName: 'NVS 3',
+        imageUrl: imgA7,
+        hotspots: [
+            { id: 'hs7_3', position: [20, 2, -5], target: 'A3', label: 'Phòng ngủ 1' }
+        ]
+    }
 };
 
 const scenesList = Object.values(SCENES);
@@ -33,8 +94,9 @@ export default function Can2BPage() {
             sceneTitle={currentScene.title}
             currentSceneId={currentSceneId}
             scenesList={scenesList}
-            showCoordinateHelper={true}
+            showCoordinateHelper={false}
             projectName="Hiyori Garden Tower - Căn 2B"
         />
     );
 }
+

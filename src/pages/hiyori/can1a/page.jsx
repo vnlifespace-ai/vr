@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import VR360Viewer from '../../../components/VR360Viewer';
 
-const imgA1 = 'https://drive.google.com/uc?export=view&id=18m7ZZ86pMY3N0fzbQ4e12X_NXE8TAxq_';
-const imgA2 = 'https://drive.google.com/uc?export=view&id=1MkuCUbbV_HhAPUiafFp9MbR2syAvfX8F';
-const imgA3 = 'https://drive.google.com/uc?export=view&id=1q68uvZEVfCKF5FneVng42KvRUMSefx8a';
-const imgA4 = 'https://drive.google.com/uc?export=view&id=17mj0zVAOEGsfdaVUa7XkzLT5bHXayf99';
-const imgA5 = 'https://drive.google.com/uc?export=view&id=1LIMgMcNqkSRY1yVQQjuKiL6iKwEN89J6';
+import imgA1 from './images/A1.jpg';
+import imgA2 from './images/A2.jpg';
+import imgA3 from './images/A3.jpg';
+import imgA4 from './images/A4.jpg';
+import imgA5 from './images/A5.jpg';
 
 const SCENES = {
     A2: {

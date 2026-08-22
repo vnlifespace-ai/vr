@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import VR360Viewer from '../../../components/VR360Viewer';
 
-import imgA1 from './images/A1.jpg';
-import imgA2 from './images/A2.jpg';
-import imgA3 from './images/A3.jpg';
-import imgA4 from './images/A4.jpg';
-import imgA5 from './images/A5.jpg';
-
 const SCENES = {
     A2: {
         id: 'A2',
         title: 'A2 - Lối Vào & Sảnh Đón',
         shortName: 'Lối vào',
-        imageUrl: imgA2,
+        imageUrl: 'https://woclxhuxiynyuzohzuqu.supabase.co/storage/v1/object/public/VR/hiyori/can1a/A2.jpg',
         // Xoay góc ảnh 360 để camera nhìn thẳng về phía trước lối vào/phòng khách thay vì nhìn vào tường
         initialRotation: Math.PI,
         hotspots: [
@@ -25,7 +19,7 @@ const SCENES = {
         id: 'A1',
         title: 'A1 - Bếp',
         shortName: 'Bếp',
-        imageUrl: imgA1,
+        imageUrl: 'https://woclxhuxiynyuzohzuqu.supabase.co/storage/v1/object/public/VR/hiyori/can1a/A1.jpg',
         initialRotation: 0,
         hotspots: [
             { id: 'hs_a1_a2', position: [15, 1.2, 9.6], target: 'A2', label: 'Ra sảnh' },
@@ -37,7 +31,7 @@ const SCENES = {
         id: 'A3',
         title: 'A3 - Phòng khách',
         shortName: 'Phòng khách',
-        imageUrl: imgA3,
+        imageUrl: 'https://woclxhuxiynyuzohzuqu.supabase.co/storage/v1/object/public/VR/hiyori/can1a/A3.jpg',
         initialRotation: 0,
         hotspots: [
             { id: 'hs_a3_a4', position: [-8, -1.4, -14.9], target: 'A4', label: 'Phòng ngủ' },
@@ -51,7 +45,7 @@ const SCENES = {
         id: 'A4',
         title: 'A4 - Phòng Ngủ Chính',
         shortName: 'Phòng ngủ',
-        imageUrl: imgA4,
+        imageUrl: 'https://woclxhuxiynyuzohzuqu.supabase.co/storage/v1/object/public/VR/hiyori/can1a/A4.jpg',
         initialRotation: 0,
         hotspots: [
             { id: 'hs_a4_a1', position: [20, -4.3, 9.5], target: 'A1', label: 'Trở về Phòng Khách (A1)' }
@@ -61,7 +55,7 @@ const SCENES = {
         id: 'A5',
         title: 'A5 - Nhà Vệ Sinh (WC)',
         shortName: 'Nhà vệ sinh',
-        imageUrl: imgA5,
+        imageUrl: 'https://woclxhuxiynyuzohzuqu.supabase.co/storage/v1/object/public/VR/hiyori/can1a/A5.jpg',
         initialRotation: 0,
         hotspots: [
             { id: 'hs_a5_a1', position: [7, -5.1, 12.3], target: 'A1', label: 'Trở về Bếp ' }

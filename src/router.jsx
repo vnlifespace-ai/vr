@@ -2,6 +2,7 @@ import Can1APage from "./pages/hiyori/can1a/page";
 import Can1BPage from "./pages/hiyori/can1b/page";
 import Can2APage from "./pages/hiyori/can2a/page";
 import Can2BPage from "./pages/hiyori/can2b/page";
+import Can3APage from "./pages/hiyori/can3a/page";
 
 const router = [
 
@@ -20,6 +21,10 @@ const router = [
     {
         path: '/hiyori/can2b',
         element: <Can2BPage />
+    },
+    {
+        path: '/hiyori/can3a',
+        element: <Can3APage />
     }
 ];
 
